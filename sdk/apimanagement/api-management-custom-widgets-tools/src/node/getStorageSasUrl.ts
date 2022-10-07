@@ -6,7 +6,9 @@ import { ServiceInformation } from "./deploy";
 import { getClient } from "@azure-rest/core-client";
 
 async function getAccessToken(managementApiEndpoint: string): Promise<string> {
-  const credentials = new InteractiveBrowserCredential();
+  const credentials = new identity.InteractiveBrowserCredential({
+        redirectUri: "http://localhost:51460",
+  });
   const scope = `${managementApiEndpoint}/user_impersonation`;
   const { token } = await credentials.getToken(scope);
   return `Bearer ${token}`;
